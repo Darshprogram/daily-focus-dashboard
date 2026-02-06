@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Second Brain</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      margin-top: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 80vh;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 16px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    #chat {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .user {
+      color: #1a73e8;
+      margin-bottom: 8px;
+    }
+
+    .assistant {
+      color: #188038;
+      margin-bottom: 12px;
+    }
+
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 12px 16px;
+      border: none;
+      background: #1a73e8;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1558b0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <h1>Second Brain</h1>
+
+    <div id="chat"></div>
+
+    <div class="input-area">
+      <input id="message" placeholder="Ask anything..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("message");
+      const chat = document.getElementById("chat");
+      const text = input.value.trim();
+
+      if (!text) return; // prevent empty sends
+
+      // show user message
+      chat.innerHTML += `<div class="user"><b>You:</b> ${text}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+
+      input.value = "";
+
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await response.json();
+
+      // show assistant reply
+      chat.innerHTML += `<div class="assistant"><b>Second Brain:</b> ${data.reply}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
