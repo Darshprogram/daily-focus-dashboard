@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Daily Focus Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <h1>Daily Focus Dashboard</h1>
+    <button id="themeToggle">Toggle Theme</button>
+
+    <div class="modes">
+      <button data-mode="study">Study</button>
+      <button data-mode="work">Work</button>
+      <button data-mode="chill">Chill</button>
+    </div>
+
+    <p id="modeText">Mode: Study</p>
+    <p id="timer">25:00</p>
+
+    <div class="controls">
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+
+    <h3>Today’s Main Goal</h3>
+    <input id="mainGoalInput" placeholder="Enter your main goal..." />
+
+    <h3>Tasks</h3>
+    <p id="taskProgress">0 / 0 completed</p>
+    <input id="taskInput" placeholder="Add a task..." />
+    <ul id="taskList"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
